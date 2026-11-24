@@ -87,7 +87,33 @@ cat would go — a formal complaint that the human hogs the cat's laptop.
   (= 20:10 WIB).
 
 ## 6. Check / bundle
-- (pending)
+- Bundle v1: ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v1.tar.gz
+  (154,026 bytes, sha256 07d991d45d8c90510f470245b7694d3040cf9061705ca1ede97d81cd2c009381),
+  2 sessions (parent 4a8d01a4 14 turns; builder ba6dbf2d 29 turns, 103 lines),
+  run record: scheduled prompt, system prompt uploaded,
+  instruction files collected (1), MCP none.
+  NOTE: plain discovery NOT used — re-ran bundle with --no-discover
+  --no-family --session <builder> --session <parent> to get exactly the 2
+  build sessions, matching the proven u-hamsyh composition. (v1 was made
+  with uncommitted BUILD_LOG changes — recorded as repo.dirty; superseded
+  by v2 below.)
+- Bundle v2: ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v2.tar.gz
+  (155,199 bytes, sha256 1970330bf56db6ac4be7f05533ec2a5d9a75f50d1af0ff9cd7c9a9c7c080db40),
+  clean tree, same 2 sessions and flags as v1.
+- Check v1 on commit 20e55982d5051ccb3932e663ad0ff27706e8f48f + bundle v2:
+  13 pass / 1 fail / 5 skip / 5 at submission. thinking_in_window PASS
+  (all 110 timestamps 09:30:05–09:54:07Z), thinking_reproduces PASS
+  (94/152 lines, 61.8%), thinking_revised PASS (main.ts from 2 messages),
+  thinking_own_work PASS (94 authored, 0 from another entry/downloads),
+  transcripts_run_record PASS.
+- Remaining FAIL: thinking_priced — 0 usage rows. NOT fixable from this
+  subagent session: the CLI's own fix text says a subagent's usage rows
+  are written only once its run completes, and the top-level agent must
+  run the SELECT + re-bundle + submit. This is the known token-radar
+  sequencing pattern, not a build failure.
+- Re-bundle v3 + re-check v2 (per brief step 8) below.
+- Quota re-verified before handoff: can_submit true (day cap 5, taken 0).
+  Blind round slot available until 2026-11-24T13:10:03.333Z (= 20:10 WIB).
 
 ## 7. Submit
 - (pending)
