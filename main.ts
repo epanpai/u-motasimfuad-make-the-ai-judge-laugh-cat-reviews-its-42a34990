@@ -9,6 +9,10 @@
 // The line: "One star. He sits at my laptop eight hours a day, then calls
 // me needy for sitting on his keyboard for five minutes."
 //
+// Play code: none needed — GET /api/competitions/<slug>/play-code answers
+// this competition asks no play code, so the entry carries no code and no
+// code from any other bounty is used here.
+//
 // Why this line, against the judge's brief (in its order):
 // 1. A funny one-star review written by a house cat about its human owner:
 //    "One star." opens it, and the whole complaint is the cat grading its
