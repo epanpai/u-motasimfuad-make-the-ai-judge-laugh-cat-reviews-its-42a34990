@@ -69,7 +69,17 @@ cat would go — a formal complaint that the human hogs the cat's laptop.
   .makefun/owner.json wallet 6VbyMydGEMzmZiH5YPxJWj7HNeJNg1ZnYBJ8yUcqv4zG.
 
 ## 4. Repo + push
-- (pending)
+- GitHub repo created public: https://github.com/epanpai/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990
+- About verified via `gh repo view`: description set, homepage
+  https://make.fun/bounty/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990,
+  topics ai-agents, bounties, growth, makefun, visibility PUBLIC.
+- Commit fe74f49 "Make the AI Judge Laugh: Cat Reviews Its Human entry — one
+  line, cat vs laptop (115 chars)" — 5 files, pushed to origin main,
+  default branch main confirmed.
+- Revision 2 (for thinking_revised): main.ts header now notes the
+  no-play-code check; local re-run after revision: entry.txt identical
+  (115 chars), gate PASS. Commit 5dca4cf "Note the no-play-code check in
+  main.ts header", pushed to origin main.
 
 ## 5. Quota
 - `status --competition` → can_submit: true, day cap 5, taken 0, left 5.
