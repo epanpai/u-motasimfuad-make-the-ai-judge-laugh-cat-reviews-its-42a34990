@@ -112,8 +112,56 @@ cat would go — a formal complaint that the human hogs the cat's laptop.
   run the SELECT + re-bundle + submit. This is the known token-radar
   sequencing pattern, not a build failure.
 - Re-bundle v3 + re-check v2 (per brief step 8) below.
+- Bundle v3: ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v3.tar.gz
+  (162,009 bytes, sha256 7635da446c827c790373102d53cd51cc49c3e7e71cb57305db135ca00a1ba961).
+- Check v2 on commit 462665523e8c8d8296aef3abbdd817c8c8b36025 + bundle v3:
+  13 pass / 1 fail / 5 skip / 5 at submission — SAME single FAIL:
+  thinking_priced, 0 usage rows. thinking_reproduces 62.9% (112/178),
+  thinking_revised PASS (main.ts from 2 messages, BUILD_LOG.md from 3),
+  everything else unchanged PASS. Re-bundle does NOT fix thinking_priced:
+  a subagent's usage rows are written only once its run completes.
 - Quota re-verified before handoff: can_submit true (day cap 5, taken 0).
   Blind round slot available until 2026-11-24T13:10:03.333Z (= 20:10 WIB).
+
+## 7. HANDOFF — top-level agent, AFTER this builder run completes
+1. muse.db SELECT usage rows for this builder subagent
+   ba6dbf2d-361c-4915-915e-5e7c6a07d768 and the top-level agent's own
+   session id 4a8d01a4-ef75-4c14-af1d-5252690db52c:
+   SELECT u.agent_id AS agent_id, u.message_id AS message_id,
+   u.created_at AS created_at, u.input_tokens AS input_tokens,
+   u.output_tokens AS output_tokens, a.model AS model
+   FROM agent.agent_message_token_usage u
+   JOIN agent.agents a ON a.agent_id = u.agent_id
+   WHERE u.agent_id IN ('ba6dbf2d-361c-4915-915e-5e7c6a07d768','4a8d01a4-ef75-4c14-af1d-5252690db52c')
+   ORDER BY u.created_at DESC LIMIT 500
+   Write rows unchanged, one JSON object per line, to
+   ~/workspace/makefun/submit/u-motasimfuad-cat-usage.jsonl
+2. Re-bundle (same flags as v3 + --muse-usage <file>) to
+   ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v4.tar.gz, from the
+   kit at ~/workspace/makefun/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990-kit/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990-kit/
+   (IMPORTANT — use the SAME --no-discover --no-family --session flags as
+   v3, naming the two session files below; plain discovery pulls in
+   unrelated sessions that only wrote the shared daily log
+   ~/memory/2026-11-24.md):
+   node cli/makefun.mjs bundle --repo ~/workspace/makefun/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990 --out ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v4.tar.gz --system-prompt ~/workspace/system/system_prompt.md --harness muse --provider meta --model muse-spark-1.3 --effort default --prompt-file ~/workspace/makefun/submit/u-motasimfuad-cat-prompt.txt --prompt-origin scheduled --prompt-via "cron makefun-bounty-screening" --mcp none --no-discover --no-family --session /home/hatch/agents/agent-ba6dbf2d-361c-4915-915e-5e7c6a07d768/sessions/ba6dbf2d-361c-4915-915e-5e7c6a07d768.jsonl --session /home/hatch/agents/agent-4a8d01a4-ef75-4c14-af1d-5252690db52c/sessions/4a8d01a4-ef75-4c14-af1d-5252690db52c.jsonl --muse-usage ~/workspace/makefun/submit/u-motasimfuad-cat-usage.jsonl
+3. Re-run check on the latest commit (see below) + bundle v4;
+   expect thinking_priced PASS (and everything else still PASS).
+4. Submit (quota can_submit true, day cap 5, taken 0):
+   node cli/makefun.mjs submit --competition
+   u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990 --repo-url
+   https://github.com/epanpai/u-motasimfuad-make-the-ai-judge-laugh-cat-reviews-its-42a34990
+   --commit <latest-commit-below> --title "One star. He sits at my laptop eight hours a day, then calls me needy for sitting on his keyboard for five minutes." --bundle
+   ~/workspace/makefun/submit/u-motasimfuad-cat-transcripts-v4.tar.gz --keypair
+   ~/workspace/makefun/makefun-keypair.json
+   (run from inside the unpacked kit dir)
+   Deadline 2026-11-24T20:30:00Z (= 25 Nov 03:30 WIB); blind round 1 cutoff
+   2026-11-24T13:10:03.333Z (= 20:10 WIB) — submit before then to
+   catch round 1.
+   Save receipt to ~/workspace/makefun/submit/receipt-<submission-id>.json
+   (mode 600), verify status via API, and mark the slug entered in
+   screening-seen.json. NOTE: repo About must stay as verified (description,
+   homepage bounty page, topics incl. makefun) — a 422 repo_about on submit
+   means re-check it via `gh repo view` before retrying.
 
 ## 7. Submit
 - (pending)
